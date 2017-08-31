@@ -8,8 +8,33 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  addTodoRoutes(){
+  noTodoRoutes(){
     let routeConfigStore = getStore('router-config-store')
+    routeConfigStore.clearRoutes();
+    routeConfigStore.setCatchAllRoute({ path: '*',
+              exact: true,
+              component: CatchAll
+            });
+    routeConfigStore.addRoutes([
+            { path: '/',
+              exact: true,
+              component: App
+            },
+            { path: '/child/:id',
+              component: Child,
+              routes: [
+                { path: '/child/:id/grand-child',
+                  component: GrandChild
+                }
+              ]
+            }
+          ]);
+    routeConfigStore.setRootComponent(Root);
+    routeConfigStore.publishFinalRouteTable();
+	}
+  withTodoRoutes(){
+    let routeConfigStore = getStore('router-config-store')
+    routeConfigStore.clearRoutes();
     routeConfigStore.setCatchAllRoute({ path: '*',
               exact: true,
               component: CatchAll
@@ -45,7 +70,8 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <button onClick={() => {this.addTodoRoutes()}}>Add Todo Routes!</button>
+        <button onClick={() => {this.withTodoRoutes()}}>With Todo Routes!</button>
+        <button onClick={() => {this.noTodoRoutes()}}>No Todo Routes!</button>
       </div>
     );
   }
