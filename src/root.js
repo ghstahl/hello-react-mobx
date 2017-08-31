@@ -13,7 +13,11 @@ export const Root = ({ route }) => (
       <h2>Home</h2>
     </div>
   )
-  
+  export const CatchAll = ({ route }) => (
+    <div>
+      <h2>CatchAll</h2>
+    </div>
+  )
   export const Child = ({ route }) => (
     <div>
       <h2>Child</h2>

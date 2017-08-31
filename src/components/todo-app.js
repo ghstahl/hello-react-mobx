@@ -10,6 +10,7 @@ import {getStore,addStore} from '../stores/store-store';
 
 @observer
 export default class TodoApp extends React.Component {
+
 	render() {
         let todoStore = getStore('todo-store');
         let viewStore = getStore('view-store');
@@ -21,6 +22,7 @@ export default class TodoApp extends React.Component {
 				</header>
 				<TodoOverview todoStore={todoStore} viewStore={viewStore} />
 				<TodoFooter todoStore={todoStore} viewStore={viewStore} />
+				
 			</div>
 		);
 	}
