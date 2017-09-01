@@ -14,19 +14,7 @@ class StoreStore {
         return this.stores[name];
     }
 }
+let storeStore = new StoreStore();
+window.p7hostGlobal.storeStore = storeStore;
+export default storeStore;
 
-window.p7hostGlobal.storeStore = new StoreStore();
-
-//-------- globalStore.js ------------
-export function getStoreStore() {
-    return window.p7hostGlobal.storeStore;
-}
-export function getStore(name) {
-    return getStoreStore().getStore(name)
-}
-export function addStore(name,store) {
-    return getStoreStore().addStore(name,store)
-}
-export function removeStore(name) {
-    return getStoreStore().removeStore(name)
-}

@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {observer} from 'mobx-react';
-import {pluralize} from '../utils/utils';
+//import {pluralize} from '../utils';
 import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS } from '../constants';
+let utils = window.p7hostGlobal.utils;
+let pluralize = utils.pluralize;
 
 @observer
 export default class TodoFooter extends React.Component {

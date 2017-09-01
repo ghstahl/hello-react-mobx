@@ -12,17 +12,50 @@ import {
 } from './root';
 import App from './App';
 
-import './stores/route-config-store';
+import './stores/router-config-store';
 
+import * as Utils from './utils/utils';
+import pluginStore from './stores/plugin-store';
+import routerConfigStore from './stores/router-config-store';
 import registerServiceWorker from './registerServiceWorker';
-import {getStore,addStore} from './stores/store-store';
+import storeStore from './stores/store-store';
 import TodoStore from './stores/todo-store';
 import ViewStore from './stores/view-store';
 import TodoApp from './components/todo-app';
-addStore('view-store',new ViewStore())
-addStore('todo-store',new TodoStore())
 
-let routeConfigStore = getStore('router-config-store')
+//window.React = require('react');
+//window.react = require('react');
+
+storeStore.addStore('view-store',new ViewStore())
+storeStore.addStore('todo-store',new TodoStore())
+
+
+window.p7hostGlobal.utils = Utils;
+
+pluginStore.setRootComponent(Root); 
+pluginStore.setCatchAllRoute({
+  path: '*',
+  exact: true,
+  component: CatchAll
+});
+pluginStore.addPlugin("root",{
+  routes: [{
+      path: '/',
+      exact: true,
+      component: App
+    },
+    {
+      path: '/child/:id',
+      component: Child,
+      routes: [{
+        path: '/child/:id/grand-child',
+        component: GrandChild
+      }]
+    }
+  ]
+});
+/*
+let routeConfigStore = storeStore.getStore('router-config-store')
 routeConfigStore.setCatchAllRoute({ path: '*',
           exact: true,
           component: CatchAll
@@ -43,6 +76,7 @@ routeConfigStore.addRoutes([
       ]);
 routeConfigStore.setRootComponent(Root);
 routeConfigStore.publishFinalRouteTable();
+*/
 /*
 const routes = [
     { component: Root,
@@ -90,7 +124,7 @@ AppRouterContainer.propTypes = {
 ReactDOM.render((  
     <div>
     <DevTool />
-    <AppRouterContainer routes={routeConfigStore.routes}></AppRouterContainer>
+    <AppRouterContainer routes={routerConfigStore.routes}></AppRouterContainer>
     
   </div>
 )

@@ -1,7 +1,8 @@
 import {observable, computed, reaction} from 'mobx';
 import TodoModel from '../models/todo-model'
-import * as Utils from '../utils/utils';
+//import * as Utils from '../utils';
 
+let Utils = window.p7hostGlobal.utils;
 
 export default class TodoStore {
 	@observable todos = [];

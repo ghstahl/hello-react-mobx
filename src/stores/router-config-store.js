@@ -1,15 +1,12 @@
 import {observable, computed, reaction} from 'mobx';
-import {addStore} from './store-store';
+import storeStore from './store-store';
 class RouterConfigStore {
     @observable routes = [{}];
 
     rootComponent = null;
     mainRoutes = [];
     catchAllRoute = null;
-    addStore (name,store) {
-        this.stores[name] = store;
-    }
-    
+
     setRootComponent(component){
         this.rootComponent = component;
     }
@@ -40,4 +37,5 @@ class RouterConfigStore {
 }
 let routerConfigStore = new RouterConfigStore();
 
-addStore('router-config-store',routerConfigStore)
+storeStore.addStore('router-config-store',routerConfigStore)
+export default routerConfigStore;

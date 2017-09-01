@@ -6,14 +6,18 @@ import TodoEntry from './todo-entry';
 import TodoOverview from './todo-overview';
 import TodoFooter from './todo-footer';
 import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS } from '../constants';
-import storeStore from '../stores/store-store';
+//import {getStore,addStore} from '../stores/store-store';
+
+let storeStore = window.p7hostGlobal.storeStore;
+let getStore = storeStore.getStore;
+let addStore = storeStore.addStore;
 
 @observer
 export default class TodoApp extends React.Component {
 
 	render() {
-        let todoStore = storeStore.getStore('todo-store');
-        let viewStore = storeStore.getStore('view-store');
+        let todoStore = getStore('todo-store');
+        let viewStore = getStore('view-store');
 		return (
 			<div>
 				<header className="header">

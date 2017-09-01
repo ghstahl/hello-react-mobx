@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import {getStore,addStore} from './stores/store-store';
+
 import {
     Root,Home,Child,GrandChild,CatchAll
 } from './root';
+
 import TodoApp from './components/todo-app';
 import logo from './logo.svg';
+import dynamicJsCssLoader from './utils/dynamic-jscss-loader';
 import './App.css';
+let storeStore = window.p7hostGlobal.storeStore;
 
 class App extends Component {
   noTodoRoutes(){
-    let routeConfigStore = getStore('router-config-store')
+    let routeConfigStore = storeStore.getStore('router-config-store')
     routeConfigStore.clearRoutes();
     routeConfigStore.setCatchAllRoute({ path: '*',
               exact: true,
@@ -33,7 +36,7 @@ class App extends Component {
     routeConfigStore.publishFinalRouteTable();
 	}
   withTodoRoutes(){
-    let routeConfigStore = getStore('router-config-store')
+    let routeConfigStore = storeStore.getStore('router-config-store')
     routeConfigStore.clearRoutes();
     routeConfigStore.setCatchAllRoute({ path: '*',
               exact: true,
@@ -59,7 +62,17 @@ class App extends Component {
           ]);
     routeConfigStore.setRootComponent(Root);
     routeConfigStore.publishFinalRouteTable();
-	}
+  }
+
+  loadTodoPlugin(){
+    dynamicJsCssLoader.loadExternalJsCss({
+      key: 'todo-component',
+     jsBundle: {
+        path: 'dist/bundle.js'
+      }
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -72,6 +85,7 @@ class App extends Component {
         </p>
         <button onClick={() => {this.withTodoRoutes()}}>With Todo Routes!</button>
         <button onClick={() => {this.noTodoRoutes()}}>No Todo Routes!</button>
+        <button onClick={() => {this.loadTodoPlugin()}}>Load Todo Plugin!</button>
       </div>
     );
   }

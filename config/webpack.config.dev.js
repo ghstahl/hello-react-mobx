@@ -103,6 +103,17 @@ module.exports = {
   module: {
     strictExportPresence: true,
     rules: [
+      {
+          test: require.resolve('react'),
+          use: [{
+              loader: 'expose-loader',
+              options: 'react'
+          },
+          {
+              loader: 'expose-loader',
+              options: 'React'
+          }]
+      },
       // TODO: Disable require.ensure as it's not a standard language feature.
       // We are waiting for https://github.com/facebookincubator/create-react-app/issues/2176.
       // { parser: { requireEnsure: false } },
@@ -213,6 +224,13 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.ProvidePlugin({
+              React   : 'react',
+              react:'react'
+	        }),
+
+
+
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
